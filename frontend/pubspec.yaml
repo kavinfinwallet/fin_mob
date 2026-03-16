@@ -1,0 +1,25 @@
+name: finwallet
+description: Finance Wealth Management App
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  firebase_core: ^2.27.1
+  firebase_auth: ^4.17.4
+  firebase_messaging: ^14.7.21
+  pinput: ^3.0.1
+  http: ^1.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
