@@ -1,0 +1,14 @@
+[2026-03-16T15:39:08.202Z] error: inconsistent types deduced for parameter $1
+    at C:\Users\finwalletit\Documents\finwallet\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.updateStatus (C:\Users\finwalletit\Documents\finwallet\backend\src\models\notificationLog.model.js:15:20)
+    at async sendFCMNotification (C:\Users\finwalletit\Documents\finwallet\backend\src\services\notification.service.js:61:5)
+    at async sendOTP (C:\Users\finwalletit\Documents\finwallet\backend\src\controllers\auth.controller.js:80:25)
+
+[2026-03-16T15:39:24.309Z] error: inconsistent types deduced for parameter $1
+    at C:\Users\finwalletit\Documents\finwallet\backend\node_modules\pg-pool\index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.updateStatus (C:\Users\finwalletit\Documents\finwallet\backend\src\models\notificationLog.model.js:15:20)
+    at async sendFCMNotification (C:\Users\finwalletit\Documents\finwallet\backend\src\services\notification.service.js:61:5)
+    at async sendOTP (C:\Users\finwalletit\Documents\finwallet\backend\src\controllers\auth.controller.js:80:25)
+

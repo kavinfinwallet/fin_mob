@@ -1,0 +1,28 @@
+{
+  "project_info": {
+    "project_number": "383429725561",
+    "project_id": "otp-login-0",
+    "storage_bucket": "otp-login-0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383429725561:android:b5fdbc6230503e82dc73a8",
+        "android_client_info": {
+          "package_name": "com.example.finwallet"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgQO5QAU_M0I0PO4OXBC_cjCx2E6MHw3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

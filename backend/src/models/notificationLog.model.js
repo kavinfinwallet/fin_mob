@@ -14,9 +14,9 @@ const NotificationLog = {
   updateStatus: async (id, status, errorMessage = null) => {
     const result = await db.query(
       `UPDATE notification_logs
-       SET status = $1,
+       SET status = $1::text,
            error_message = $2,
-           sent_at = CASE WHEN $1 = 'sent' THEN NOW() ELSE sent_at END
+           sent_at = CASE WHEN $1::text = 'sent' THEN NOW() ELSE sent_at END
        WHERE id = $3
        RETURNING *`,
       [status, errorMessage, id]

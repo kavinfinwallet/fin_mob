@@ -3,7 +3,7 @@ const rateLimit = require('express-rate-limit');
 // Strict limiter for OTP send — prevent spam
 const sendOTPLimiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 minutes
-  max: 5, // max 5 OTP requests per window per IP
+  max: 100, // max 100 OTP requests per window
   message: {
     success: false,
     message: 'Too many OTP requests from this IP. Please try again after 10 minutes.',

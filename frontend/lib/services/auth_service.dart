@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -63,7 +64,7 @@ class AuthService {
 
   // ── Custom Backend OTP ────────────────────────────────
   // IMPORTANT: Replace with your actual production backend URL
-  static const String baseUrl = 'http://192.168.1.15:5000/api';
+  static const String baseUrl = 'http://192.168.1.15:15000/api';
 
   Future<Map<String, dynamic>> sendBackendOtp(String phone) async {
     try {
@@ -97,8 +98,14 @@ class AuthService {
 
       final data = jsonDecode(response.body);
       if (response.statusCode == 200 && data['success'] == true) {
-        // Here you would normally save the JWT tokens
-        // For now we just return the success data
+        // Save tokens
+        final prefs = await SharedPreferences.getInstance();
+        if (data['data']['accessToken'] != null) {
+          await prefs.setString('accessToken', data['data']['accessToken']);
+        }
+        if (data['data']['refreshToken'] != null) {
+          await prefs.setString('refreshToken', data['data']['refreshToken']);
+        }
       }
       return data;
     } catch (e) {

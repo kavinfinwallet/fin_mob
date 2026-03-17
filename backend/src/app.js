@@ -1,10 +1,21 @@
 const express = require('express');
+const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 const { generalLimiter } = require('./middleware/rateLimit.middleware');
 const routes = require('./routes/index');
 
 const app = express();
 
+// ── Enable CORS ───────────────────────────────
+app.use(cors());
+
 // ── Body parsing ──────────────────────────────
+app.use((req, res, next) => {
+  const log = `[${new Date().toISOString()}] ${req.method} ${req.url}\n`;
+  fs.appendFileSync('c:/Users/finwalletit/Documents/finwallet/backend/debug.log', log);
+  next();
+});
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -34,8 +45,10 @@ app.use((req, res) => {
 
 // ── Global error handler ──────────────────────
 app.use((err, req, res, next) => {
+  const errorLog = `[${new Date().toISOString()}] ${err.stack}\n\n`;
+  fs.appendFileSync('c:/Users/finwalletit/Documents/finwallet/backend/error.log', errorLog);
   console.error('[Unhandled Error]', err);
-  res.status(500).json({ success: false, message: 'Internal server error' });
+  res.status(500).json({ success: false, message: 'Internal server error', error: err.message });
 });
 
 module.exports = app;

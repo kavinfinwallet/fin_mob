@@ -1,5 +1,5 @@
 name: finwallet
-description: Finance Wealth Management App
+description: WealthOS Investment Management App
 version: 1.0.0+1
 publish_to: none
 
@@ -15,6 +15,8 @@ dependencies:
   firebase_messaging: ^14.7.21
   pinput: ^3.0.1
   http: ^1.1.2
+  shared_preferences: ^2.2.2
+  flutter_local_notifications: ^16.1.0
 
 dev_dependencies:
   flutter_test:

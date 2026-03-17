@@ -49,7 +49,7 @@ class LandingScreen extends StatelessWidget {
 
               // Subtitle
               Text(
-                'Track, save, and grow your\nmoney with FinWallet.',
+                'Track, save, and grow your\nmoney with WealthOS.',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white.withOpacity(0.6),

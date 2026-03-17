@@ -3,10 +3,12 @@
 // After OTP success → notifies RM via backend push notification
 
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 import '../services/auth_service.dart';
 import 'dashboard_screen.dart';
+import '../main.dart'; // Add this to access messengerKey
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -27,6 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final _phoneCtrl   = TextEditingController();
   final _otpCtrl     = TextEditingController();
   final _authService = AuthService();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -117,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _showSnack(String msg) {
     if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    messengerKey.currentState?.showSnackBar(SnackBar(
       content: Text(msg),
       backgroundColor: const Color(0xFF1A73E8),
       behavior: SnackBarBehavior.floating,
@@ -272,6 +279,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16, vertical: 20),
                 ),
+                onChanged: (value) {
+                  if (value.length == 10 && !_loading) {
+                    _sendOtp();
+                  }
+                },
                 onSubmitted: (_) => _sendOtp(),
               ),
             ),

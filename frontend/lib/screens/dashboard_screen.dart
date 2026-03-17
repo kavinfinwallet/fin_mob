@@ -29,7 +29,7 @@ class DashboardScreen extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey.shade500)),
-                      const Text('FinWallet User',
+                      const Text('WealthOS User',
                           style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w800,

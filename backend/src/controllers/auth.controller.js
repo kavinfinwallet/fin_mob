@@ -10,7 +10,7 @@ const { successResponse, errorResponse } = require('../utils/response');
 // POST /api/send-otp
 // Body: { phoneNumber, fcmToken?, webPushSubscription? }
 // ─────────────────────────────────────────────
-const sendOTP = async (req, res) => {
+const sendOTP = async (req, res, next) => {
   try {
     const { phoneNumber, fcmToken, webPushSubscription } = req.body;
 
@@ -107,8 +107,7 @@ const sendOTP = async (req, res) => {
       'OTP sent successfully via push notification'
     );
   } catch (err) {
-    console.error('[sendOTP]', err);
-    return errorResponse(res, 'Internal server error', 500);
+    next(err);
   }
 };
 
@@ -116,7 +115,7 @@ const sendOTP = async (req, res) => {
 // POST /api/verify-otp
 // Body: { phoneNumber, otp }
 // ─────────────────────────────────────────────
-const verifyOTPHandler = async (req, res) => {
+const verifyOTPHandler = async (req, res, next) => {
   try {
     const { phoneNumber, otp } = req.body;
 
@@ -197,8 +196,7 @@ const verifyOTPHandler = async (req, res) => {
       isNewCustomer ? 'Account created successfully' : 'Login successful'
     );
   } catch (err) {
-    console.error('[verifyOTP]', err);
-    return errorResponse(res, 'Internal server error', 500);
+    next(err);
   }
 };
 
@@ -206,7 +204,7 @@ const verifyOTPHandler = async (req, res) => {
 // POST /api/refresh-token
 // Body: { refreshToken }
 // ─────────────────────────────────────────────
-const refreshToken = async (req, res) => {
+const refreshToken = async (req, res, next) => {
   try {
     const { refreshToken: token } = req.body;
 
@@ -231,8 +229,7 @@ const refreshToken = async (req, res) => {
 
     return successResponse(res, { accessToken: tokens.accessToken, refreshToken: tokens.refreshToken }, 'Token refreshed');
   } catch (err) {
-    console.error('[refreshToken]', err);
-    return errorResponse(res, 'Internal server error', 500);
+    next(err);
   }
 };
 
@@ -240,7 +237,7 @@ const refreshToken = async (req, res) => {
 // POST /api/logout
 // Requires: Authorization header (access token)
 // ─────────────────────────────────────────────
-const logout = async (req, res) => {
+const logout = async (req, res, next) => {
   try {
     // req.customer is set by authMiddleware
     if (req.customer) {
@@ -251,8 +248,7 @@ const logout = async (req, res) => {
 
     return successResponse(res, {}, 'Logged out successfully');
   } catch (err) {
-    console.error('[logout]', err);
-    return errorResponse(res, 'Internal server error', 500);
+    next(err);
   }
 };
 
@@ -260,7 +256,7 @@ const logout = async (req, res) => {
 // POST /api/auth/customer-login
 // Body: { firebase_id_token, fcm_token, phone }
 // ─────────────────────────────────────────────
-const customerLogin = async (req, res) => {
+const customerLogin = async (req, res, next) => {
   try {
     const { fcm_token, phone } = req.body;
 
@@ -275,7 +271,7 @@ const customerLogin = async (req, res) => {
     // 2. Notify all RMs
     const { sendNotificationToAllRMs, sendGeneralFCMNotification } = require('../services/notification.service');
     const RelationshipManager = require('../models/relationshipManager.model');
-    
+
     const rms = await RelationshipManager.findAllActive();
     const notificationPromises = rms.map(rm => {
       if (rm.fcm_token) {
@@ -297,8 +293,7 @@ const customerLogin = async (req, res) => {
 
     return successResponse(res, {}, 'Login notification processed');
   } catch (err) {
-    console.error('[customerLogin]', err);
-    return errorResponse(res, 'Internal server error', 500);
+    next(err);
   }
 };
 

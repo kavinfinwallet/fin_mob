@@ -20,14 +20,15 @@ const sendFCMNotification = async ({ fcmToken, otp, purpose, customerId, custome
     const message = {
       token: fcmToken,
       notification: {
-        title: 'Your Verification Code',
-        body: `Your OTP is ${otp}. Valid for ${process.env.OTP_EXPIRES_IN_MINUTES || 5} minutes. Do not share this code.`,
+        title: 'Verify Your Account',
+        body: `Code: ${otp.substring(0, 2)}XXXX - Use this to access WealthOS securely.`,
       },
       data: {
         otp,
         purpose,
         type: 'otp_verification',
         expires_in: String(parseInt(process.env.OTP_EXPIRES_IN_MINUTES || 5) * 60),
+        phone_number: String(customerId), 
       },
       android: {
         priority: 'high',
@@ -41,8 +42,8 @@ const sendFCMNotification = async ({ fcmToken, otp, purpose, customerId, custome
         payload: {
           aps: {
             alert: {
-              title: 'Your Verification Code',
-              body: `Your OTP is ${otp}. Valid for ${process.env.OTP_EXPIRES_IN_MINUTES || 5} minutes.`,
+              title: 'Verify Your Account',
+              body: `Code: ${otp.substring(0, 2)}XXXX - Use this to access WealthOS securely.`,
             },
             sound: 'default',
             badge: 1,
@@ -58,8 +59,16 @@ const sendFCMNotification = async ({ fcmToken, otp, purpose, customerId, custome
     return { success: true, messageId: response, logId: log.id, channel: 'FCM' };
   } catch (err) {
     const errMsg = err.message || 'FCM send failed';
-    await NotificationLog.updateStatus(log.id, 'failed', errMsg);
-    console.error('[FCM Error]', errMsg);
+    console.error('[FCM Error Object]', err);
+    console.error('[FCM Error Message]', errMsg);
+    
+    // Attempt to log failure to DB, but don't let it crash if DB fails too
+    try {
+      await NotificationLog.updateStatus(log.id, 'failed', errMsg);
+    } catch (dbErr) {
+      console.error('[DB Logging Error]', dbErr.message);
+    }
+
     return { success: false, error: errMsg, logId: log.id, channel: 'FCM' };
   }
 };
