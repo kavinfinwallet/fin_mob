@@ -1,0 +1,209 @@
+/* Assignments page – warm editorial design language */
+
+.assignments-page {
+  --assign-bg: #f8fafc;
+  --assign-border: #e2e8f0;
+  --assign-heading: #0f172a;
+  --assign-muted: #64748b;
+  --assign-label: #475569;
+  --assign-accent: #7A63D9;
+  --assign-accent-end: #9E65D6;
+}
+
+.assignments-page .assignments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.assignments-page .assignments-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--assign-heading);
+  letter-spacing: -0.02em;
+}
+
+.assignments-page .assign-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--assign-label);
+  background: transparent;
+  border: 1px solid var(--assign-border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.assignments-page .assign-back:hover {
+  background: var(--assign-bg);
+  border-color: #cbd5e1;
+  color: var(--assign-heading);
+}
+
+/* Card: soft background, left accent stripe */
+.assignments-page .assign-card {
+  background: var(--assign-bg);
+  border: 1px solid var(--assign-border);
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  border-left: 4px solid var(--assign-accent);
+}
+
+.assignments-page .assign-card__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--assign-heading);
+  letter-spacing: -0.01em;
+}
+
+.assignments-page .assign-card__desc {
+  font-size: 0.9rem;
+  color: var(--assign-muted);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.assignments-page .assign-card__hint {
+  font-size: 0.85rem;
+  color: var(--assign-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Form: vertical rhythm, full-width assign button */
+.assignments-page .assign-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.assignments-page .assign-form__group {
+  min-width: 260px;
+  flex: 1;
+}
+
+.assignments-page .assign-form__group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--assign-label);
+}
+
+.assignments-page .assign-form .custom-select-trigger {
+  background: #fff;
+  border: 1px solid var(--assign-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.assignments-page .assign-form .custom-select-trigger:hover:not(:disabled) {
+  border-color: #cbd5e1;
+}
+
+.assignments-page .assign-form .custom-select-trigger:focus {
+  border-color: var(--assign-accent);
+  box-shadow: 0 0 0 2px rgba(122, 99, 217, 0.25);
+}
+
+/* Assign button: same gradient as Create user (#7A63D9 → #9E65D6) */
+.assignments-page .assign-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(90deg, var(--assign-accent), var(--assign-accent-end));
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+  width: 100%;
+  max-width: 200px;
+}
+
+.assignments-page .assign-btn:hover {
+  opacity: 0.95;
+  box-shadow: 0 2px 8px rgba(122, 99, 217, 0.35);
+  color: #fff;
+}
+
+.assignments-page .assign-btn:active {
+  transform: scale(0.98);
+}
+
+/* Table block: match card style */
+.assignments-page .assign-table-wrap {
+  margin-top: 1.25rem;
+}
+
+.assignments-page .assign-table-wrap .table-scroll-wrap {
+  border: 1px solid var(--assign-border);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.assignments-page .assign-table-wrap .admin-users-table-wrap--scrollable {
+  border: none;
+}
+
+.assignments-page .assign-table-wrap .admin-users-table th,
+.assignments-page .assign-table-wrap .admin-users-table td {
+  border-bottom-color: var(--assign-border);
+}
+
+.assignments-page .assign-table-wrap .admin-users-table th {
+  background: var(--assign-bg);
+  color: var(--assign-heading);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.assignments-page .assign-table-wrap .admin-users-table tbody tr:hover {
+  background: #f1f5f9;
+}
+
+.assignments-page .assign-table-wrap .admin-pagination {
+  border-top-color: var(--assign-border);
+  background: var(--assign-bg);
+}
+
+.assignments-page .assign-table-wrap .admin-pagination-info {
+  color: var(--assign-muted);
+  font-size: 0.875rem;
+}
+
+.assignments-page .assign-table-wrap .btn-secondary.btn-row {
+  background: #fff;
+  color: var(--assign-label);
+  border: 1px solid var(--assign-border);
+  font-weight: 500;
+}
+
+.assignments-page .assign-table-wrap .btn-secondary.btn-row:hover {
+  background: var(--assign-bg);
+  border-color: #cbd5e1;
+  color: var(--assign-heading);
+}
+
+.assignments-page .assign-table-wrap .admin-users-table--sticky-head thead th {
+  background: var(--assign-bg);
+  box-shadow: 0 1px 0 0 var(--assign-border);
+}

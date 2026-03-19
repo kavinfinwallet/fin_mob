@@ -14,12 +14,12 @@ const NotificationLog = {
   updateStatus: async (id, status, errorMessage = null) => {
     const result = await db.query(
       `UPDATE notification_logs
-       SET status = $1::text,
+       SET status = $1,
            error_message = $2,
-           sent_at = CASE WHEN $1::text = 'sent' THEN NOW() ELSE sent_at END
-       WHERE id = $3
+           sent_at = CASE WHEN $3 = 'sent' THEN NOW() ELSE sent_at END
+       WHERE id = $4
        RETURNING *`,
-      [status, errorMessage, id]
+      [status, errorMessage, status, id]
     );
     return result.rows[0];
   },

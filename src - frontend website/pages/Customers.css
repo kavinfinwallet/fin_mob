@@ -1,0 +1,422 @@
+/* Customers page layout and table */
+.customers-page .dashboard-container {
+  max-width: 1400px;
+}
+
+.customers-page .dashboard-content {
+  max-width: none;
+  margin: 0;
+}
+
+.customers-page .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.customers-page .page-header h1 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+}
+
+/* Single-column layout: form full width, then table */
+.customers-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+/* Create customer page: same design language as Create user (Admin) */
+.create-customer-page .dashboard-content {
+  max-width: none;
+}
+
+.create-customer-page .create-customer-page-card.dashboard-card {
+  padding: 1rem 1.25rem;
+}
+
+/* Title same purple as Create user button */
+.create-customer-page .admin-users-title {
+  color: #7A63D9;
+}
+
+/* Table section - uses remaining space */
+.customers-table-section {
+  min-width: 0;
+}
+
+.customers-table-section .customers-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+}
+
+/* Table wrapper - consistent with budget tables */
+.customers-table-wrap {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  background: var(--bg-secondary);
+  max-height: 600px;
+  position: relative;
+  overflow-y: auto;
+}
+
+.customers-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.customers-table th,
+.customers-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.customers-table th {
+  background: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.customers-table tbody tr:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] .customers-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.customers-table .col-name {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.customers-table .col-actions {
+  white-space: nowrap;
+}
+
+.customers-table .btn-row {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+/* Inline edit row */
+.customers-table tr.edit-row td {
+  padding: 1rem 1rem 1.5rem;
+  background: rgba(var(--accent-color-rgb), 0.06);
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: top;
+}
+
+[data-theme="dark"] .customers-table tr.edit-row td {
+  background: rgba(var(--accent-color-rgb), 0.1);
+}
+
+.edit-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  max-width: 900px;
+}
+
+.edit-form-grid .form-group {
+  margin-bottom: 0;
+}
+
+.edit-form-grid .form-group label {
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.edit-form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Status badge */
+.status-badge-active {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: #e3fcef;
+  color: #006644;
+}
+
+.status-badge-inactive {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: #f4f5f7;
+  color: #6b778c;
+}
+
+[data-theme="dark"] .status-badge-active {
+  background: #164b35;
+  color: #79f2c0;
+}
+
+[data-theme="dark"] .status-badge-inactive {
+  background: #2c333a;
+  color: #8b9eb0;
+}
+
+/* Create customer page: search above customer list */
+.customer-list-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.customer-list-search {
+  width: 100%;
+  max-width: 360px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.customer-list-search::placeholder {
+  color: var(--text-secondary);
+}
+
+.customer-list-search:focus {
+  outline: none;
+  border-color: var(--accent-color, #2563eb);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* Create customer page: customer list table with sticky header and pagination */
+.customer-list-scroll-wrap {
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+  min-height: 200px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  margin-top: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.customer-list-scroll-wrap .customer-list-table-wrap {
+  overflow: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.customer-list-scroll-wrap .customer-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.customer-list-scroll-wrap .customer-list-table th,
+.customer-list-scroll-wrap .customer-list-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.customer-list-scroll-wrap .customer-list-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  box-shadow: 0 1px 0 0 var(--border-color);
+}
+
+.customer-list-scroll-wrap .customer-list-table tbody tr:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.customer-list-scroll-wrap .customer-list-table .col-actions {
+  white-space: nowrap;
+}
+
+.customer-list-scroll-wrap .customer-list-table .btn-row {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  min-height: 2rem;
+  min-width: 5.5rem;
+  width: 5.5rem;
+  box-sizing: border-box;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.customer-list-scroll-wrap .customer-list-table .btn-secondary.btn-row {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.customer-list-scroll-wrap .customer-list-table .btn-primary.btn-row {
+  background: var(--accent-color);
+  color: #fff;
+  border: 1px solid var(--accent-color);
+}
+
+[data-theme="dark"] .customer-list-scroll-wrap .customer-list-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.customer-list-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  border-radius: 0 0 8px 8px;
+  flex-shrink: 0;
+}
+
+.customer-list-pagination-info {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.customer-list-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.customer-list-pagination-controls button {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.customer-list-pagination-controls button:hover:not(:disabled) {
+  background: var(--bg-tertiary);
+}
+
+.customer-list-pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.customer-list-pagination-controls .page-size-select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  margin-left: 0.5rem;
+}
+
+/* Empty state */
+.customers-empty {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+/* RM's Details: expandable table */
+.rms-table-wrap {
+  max-height: 70vh;
+}
+
+.rms-table .rm-row {
+  cursor: pointer;
+}
+
+.rms-table .rm-row:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="dark"] .rms-table .rm-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.rms-table .rm-row-expanded {
+  background: var(--bg-secondary);
+}
+
+.rms-table .col-expand {
+  width: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  vertical-align: middle;
+}
+
+.rm-expand-icon {
+  display: inline-block;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  transition: transform 0.15s ease;
+}
+
+.rm-detail-row {
+  background: var(--bg-primary);
+}
+
+.rm-detail-cell {
+  padding: 0;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: top;
+}
+
+.rm-customers-inner {
+  padding: 1rem 1.5rem 1.25rem;
+  background: var(--bg-secondary);
+}
+
+.rm-customers-empty {
+  margin: 0;
+  padding: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.rm-customers-table {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.rm-customers-table th,
+.rm-customers-table td {
+  padding: 0.5rem 0.75rem;
+}
+
+.rm-customers-table thead th {
+  background: var(--bg-tertiary);
+  font-weight: 600;
+  font-size: 0.8rem;
+}

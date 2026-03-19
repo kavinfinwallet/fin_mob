@@ -21,27 +21,6 @@ const getProfile = async (req, res) => {
   }
 };
 
-// ─────────────────────────────────────────────
-// PUT /api/customer/fcm-token
-// Body: { fcmToken }
-// ─────────────────────────────────────────────
-const updateFcmToken = async (req, res) => {
-  try {
-    const customerId = req.customer.sub;
-    const { fcmToken } = req.body;
-
-    if (!fcmToken) {
-      return errorResponse(res, 'fcmToken is required', 400);
-    }
-
-    const updated = await Customer.updateFcmToken(customerId, fcmToken);
-
-    return successResponse(res, { fcmToken: updated.fcm_token }, 'FCM token updated');
-  } catch (err) {
-    console.error('[updateFcmToken]', err);
-    return errorResponse(res, 'Internal server error', 500);
-  }
-};
 
 // ─────────────────────────────────────────────
 // GET /api/notification/logs
@@ -104,4 +83,4 @@ const getNotificationLogById = async (req, res) => {
   }
 };
 
-module.exports = { getProfile, updateFcmToken, getNotificationLogs, getNotificationLogById };
+module.exports = { getProfile, getNotificationLogs, getNotificationLogById };

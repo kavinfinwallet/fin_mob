@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const { sendOTP, verifyOTPHandler, refreshToken, logout, customerLogin } = require('../controllers/auth.controller');
+const {
+  sendOTPHandler,
+  verifyOTPHandler,
+} = require('../controllers/auth.controller');
+
 const {
   getProfile,
-  updateFcmToken,
   getNotificationLogs,
   getNotificationLogById,
 } = require('../controllers/customer.controller');
@@ -12,18 +15,16 @@ const {
 const authMiddleware = require('../middleware/auth.middleware');
 const { sendOTPLimiter, verifyOTPLimiter } = require('../middleware/rateLimit.middleware');
 
-// ── Auth ──────────────────────────────────────
-router.post('/auth/customer-login', customerLogin);
-router.post('/send-otp', sendOTPLimiter, sendOTP);
+
+
+router.post('/send-otp', sendOTPLimiter, sendOTPHandler);
 router.post('/verify-otp', verifyOTPLimiter, verifyOTPHandler);
-router.post('/refresh-token', refreshToken);
-router.post('/logout', authMiddleware, logout);
 
-// ── Customer (protected) ──────────────────────
+
+// Customer
 router.get('/customer/profile', authMiddleware, getProfile);
-router.put('/customer/fcm-token', authMiddleware, updateFcmToken);
 
-// ── Notification Logs (protected) ─────────────
+// Logs
 router.get('/notification/logs', authMiddleware, getNotificationLogs);
 router.get('/notification/logs/:id', authMiddleware, getNotificationLogById);
 

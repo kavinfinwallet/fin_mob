@@ -14,12 +14,12 @@ const Customer = {
     return result.rows[0] || null;
   },
 
-  create: async ({ phoneNumber, fcmToken = null }) => {
+  create: async ({ phoneNumber }) => {
     const result = await db.query(
-      `INSERT INTO customers (phone_number, fcm_token, is_active, is_verified)
-       VALUES ($1, $2, true, true)
+      `INSERT INTO customers (phone_number, is_active, is_verified)
+       VALUES ($1, true, true)
        RETURNING *`,
-      [phoneNumber, fcmToken]
+      [phoneNumber]
     );
     return result.rows[0];
   },
@@ -32,13 +32,6 @@ const Customer = {
     return result.rows[0];
   },
 
-  updateFcmToken: async (id, fcmToken) => {
-    const result = await db.query(
-      'UPDATE customers SET fcm_token = $1, updated_at = NOW() WHERE id = $2 RETURNING *',
-      [fcmToken, id]
-    );
-    return result.rows[0];
-  },
 
   deactivate: async (id) => {
     await db.query(

@@ -1,300 +1,178 @@
-const NewCustomer = require('../models/newCustomer.model');
+const crypto = require('crypto');
+const db = require('../config/db');
+const smsService = require('../services/sms.service');
+const jwt = require('jsonwebtoken');
 const Customer = require('../models/customer.model');
 const OTPVerification = require('../models/otpVerification.model');
-const { generateOTP, hashOTP, verifyOTP, getOTPExpiry } = require('../utils/otp');
-const { generateTokenPair, verifyRefreshToken } = require('../utils/jwt');
-const { sendOTPNotification } = require('../services/notification.service');
-const { successResponse, errorResponse } = require('../utils/response');
 
-// ─────────────────────────────────────────────
-// POST /api/send-otp
-// Body: { phoneNumber, fcmToken?, webPushSubscription? }
-// ─────────────────────────────────────────────
-const sendOTP = async (req, res, next) => {
+// Generate OTP
+const generateOTP = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+};
+
+// SEND OTP
+const sendOTPHandler = async (req, res) => {
   try {
-    const { phoneNumber, fcmToken, webPushSubscription } = req.body;
+    let { phoneNumber } = req.body;
 
     if (!phoneNumber) {
-      return errorResponse(res, 'Phone number is required', 400);
+      return res.status(400).json({
+        success: false,
+        message: 'Phone number is required'
+      });
     }
 
-    // Determine if existing or new customer
-    const existingCustomer = await Customer.findByPhone(phoneNumber);
-    let customerId;
-    let purpose;
-    let customerType;
+    // Normalize: remove all non-digits
+    phoneNumber = phoneNumber.replace(/\D/g, '');
 
-    if (existingCustomer) {
-      // Existing customer — login flow
-      if (!existingCustomer.is_active) {
-        return errorResponse(res, 'Account is deactivated. Please contact support.', 403);
-      }
-      customerId = existingCustomer.id;
-      purpose = 'login';
-      customerType = 'existing';
-
-      // Update FCM token if provided and changed
-      if (fcmToken && fcmToken !== existingCustomer.fcm_token) {
-        await Customer.updateFcmToken(existingCustomer.id, fcmToken);
-      }
-    } else {
-      // New customer — signup flow
-      // Find or create a new_customer entry
-      let newCust = await NewCustomer.findByPhone(phoneNumber);
-
-      if (!newCust) {
-        newCust = await NewCustomer.create(phoneNumber);
-      } else if (newCust.status === 'expired') {
-        // Re-create if expired
-        await NewCustomer.updateStatus(newCust.id, 'pending');
-        newCust = await NewCustomer.findByPhone(phoneNumber);
-      }
-
-      customerId = newCust.id;
-      purpose = 'signup';
-      customerType = 'new customer';
+    // If it starts with 91 and has 12 digits, take last 10
+    if (phoneNumber.startsWith('91') && phoneNumber.length === 12) {
+      phoneNumber = phoneNumber.slice(2);
     }
 
-    // Invalidate any previous unused OTPs for this phone+purpose
-    await OTPVerification.invalidatePrevious(phoneNumber, purpose);
+    if (phoneNumber.length !== 10) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid phone number. Please enter a 10-digit number.'
+      });
+    }
 
-    // Generate fresh OTP
+    // 1. Find or Create Customer
+    let customer = await Customer.findByPhone(phoneNumber);
+    if (!customer) {
+      customer = await Customer.create({ phoneNumber });
+    }
+
+    // 2. Generate OTP
     const otp = generateOTP();
-    const hashedOTP = await hashOTP(otp);
-    const expiresAt = getOTPExpiry();
+    const hashedOTP = crypto
+      .createHash('sha256')
+      .update(otp)
+      .digest('hex');
 
-    // Persist OTP record
+    const expiresAt = new Date(Date.now() + (parseInt(process.env.OTP_EXPIRES_IN_MINUTES) || 5) * 60 * 1000);
+
+    // 3. Invalidate previous and Save new OTP
+    await OTPVerification.invalidatePrevious(phoneNumber, 'login');
     await OTPVerification.create({
-      customerId,
+      customerId: customer.id,
       phoneNumber,
       hashedOTP,
-      purpose,
-      expiresAt,
+      purpose: 'login',
+      expiresAt
     });
 
-    // Determine FCM token / web push subscription to use
-    const tokenToUse = fcmToken || (existingCustomer?.fcm_token ?? null);
-    const webPushToUse = webPushSubscription || null;
+    // 4. Send via MSG91
+    await smsService.sendOTP(phoneNumber, otp);
 
-    // Send push notification
-    const notifResult = await sendOTPNotification({
-      fcmToken: tokenToUse,
-      webPushSubscription: webPushToUse,
-      otp,
-      purpose,
-      customerId,
-      customerType,
+    console.log(`[OTP] ${phoneNumber} → ${otp}`);
+
+    return res.status(200).json({
+      success: true,
+      message: 'OTP sent successfully'
     });
 
-    if (!notifResult.success) {
-      // Notification failed — still created OTP but warn caller
-      return errorResponse(
-        res,
-        'Failed to deliver OTP notification. Please ensure push notifications are enabled.',
-        503,
-        { channel: notifResult.channel, detail: notifResult.error }
-      );
-    }
+  } catch (error) {
+    console.error('Send OTP Error:', error);
 
-    return successResponse(
-      res,
-      {
-        purpose,
-        customerType,
-        expiresIn: parseInt(process.env.OTP_EXPIRES_IN_MINUTES || 5) * 60,
-        channel: notifResult.channel,
-      },
-      'OTP sent successfully via push notification'
-    );
-  } catch (err) {
-    next(err);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to send OTP',
+      debug: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 
-// ─────────────────────────────────────────────
-// POST /api/verify-otp
-// Body: { phoneNumber, otp }
-// ─────────────────────────────────────────────
-const verifyOTPHandler = async (req, res, next) => {
+// VERIFY OTP
+const verifyOTPHandler = async (req, res) => {
   try {
-    const { phoneNumber, otp } = req.body;
+    let { phoneNumber, otp } = req.body;
 
     if (!phoneNumber || !otp) {
-      return errorResponse(res, 'Phone number and OTP are required', 400);
+      return res.status(400).json({
+        success: false,
+        message: 'Phone and OTP required'
+      });
     }
 
-    // Find a valid OTP (checks expiry and is_used)
-    const existingCustomer = await Customer.findByPhone(phoneNumber);
-    const purpose = existingCustomer ? 'login' : 'signup';
+    // Normalize phone
+    phoneNumber = phoneNumber.replace(/\D/g, '');
+    if (phoneNumber.startsWith('91') && phoneNumber.length === 12) {
+      phoneNumber = phoneNumber.slice(2);
+    }
 
-    const otpRecord = await OTPVerification.findValid(phoneNumber, purpose);
+    // 1. Find valid OTP
+    const otpRecord = await OTPVerification.findValid(phoneNumber, 'login');
 
     if (!otpRecord) {
-      return errorResponse(res, 'OTP has expired or does not exist. Please request a new one.', 400);
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid or expired OTP'
+      });
     }
 
-    // Check max attempt limit
-    if (otpRecord.attempt_count >= otpRecord.max_attempts) {
-      await OTPVerification.markUsed(otpRecord.id); // block it
-      return errorResponse(res, 'Maximum OTP attempts exceeded. Please request a new OTP.', 429);
+    // 2. Verify Hash
+    const hashedInput = crypto
+      .createHash('sha256')
+      .update(otp)
+      .digest('hex');
+
+    // Column name is otp_code in DB based on models/otpVerification.model.js
+    if (hashedInput !== otpRecord.otp_code) { 
+      await OTPVerification.incrementAttempt(otpRecord.id);
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid OTP'
+      });
     }
 
-    // Increment attempt before checking (prevent race condition abuse)
-    await OTPVerification.incrementAttempt(otpRecord.id);
-
-    // Verify the OTP
-    const isValid = await verifyOTP(otp, otpRecord.otp_code);
-
-    if (!isValid) {
-      const remaining = otpRecord.max_attempts - (otpRecord.attempt_count + 1);
-      return errorResponse(
-        res,
-        `Invalid OTP. ${remaining > 0 ? `${remaining} attempt(s) remaining.` : 'No more attempts.'}`,
-        401
-      );
-    }
-
-    // Mark OTP as used
+    // 3. Mark as used
     await OTPVerification.markUsed(otpRecord.id);
 
-    let customer;
-    let isNewCustomer = false;
-
-    if (existingCustomer) {
-      // Existing: update last login
-      customer = await Customer.updateLastLogin(existingCustomer.id);
-    } else {
-      // New: create customer account
-      const newCustRecord = await NewCustomer.findByPhone(phoneNumber);
-      customer = await Customer.create({
-        phoneNumber,
-        fcmToken: null, // FCM token can be updated after login
-      });
-      // Mark new_customer as verified
-      if (newCustRecord) {
-        await NewCustomer.updateStatus(newCustRecord.id, 'verified');
-      }
-      isNewCustomer = true;
+    // 4. Get Customer
+    const customer = await Customer.findByPhone(phoneNumber);
+    if (customer) {
+      await Customer.updateLastLogin(customer.id);
     }
 
-    // Generate JWT token pair
-    const tokens = generateTokenPair(customer.id, customer.phone_number);
-
-    return successResponse(
-      res,
-      {
-        isNewCustomer,
-        customer: {
-          id: customer.id,
-          phoneNumber: customer.phone_number,
-          isVerified: customer.is_verified,
-          createdAt: customer.created_at,
-        },
-        accessToken: tokens.accessToken,
-        refreshToken: tokens.refreshToken,
-      },
-      isNewCustomer ? 'Account created successfully' : 'Login successful'
+    // 5. Generate Tokens
+    const accessToken = jwt.sign(
+      { userId: customer.id },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN || '1h' }
     );
-  } catch (err) {
-    next(err);
-  }
-};
 
-// ─────────────────────────────────────────────
-// POST /api/refresh-token
-// Body: { refreshToken }
-// ─────────────────────────────────────────────
-const refreshToken = async (req, res, next) => {
-  try {
-    const { refreshToken: token } = req.body;
+    const refreshToken = jwt.sign(
+      { userId: customer.id },
+      process.env.JWT_REFRESH_SECRET,
+      { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d' }
+    );
 
-    if (!token) {
-      return errorResponse(res, 'Refresh token is required', 400);
-    }
-
-    let decoded;
-    try {
-      decoded = verifyRefreshToken(token);
-    } catch {
-      return errorResponse(res, 'Invalid or expired refresh token', 401);
-    }
-
-    // Verify customer still exists and is active
-    const customer = await Customer.findById(decoded.sub);
-    if (!customer || !customer.is_active) {
-      return errorResponse(res, 'Customer not found or account deactivated', 401);
-    }
-
-    const tokens = generateTokenPair(customer.id, customer.phone_number);
-
-    return successResponse(res, { accessToken: tokens.accessToken, refreshToken: tokens.refreshToken }, 'Token refreshed');
-  } catch (err) {
-    next(err);
-  }
-};
-
-// ─────────────────────────────────────────────
-// POST /api/logout
-// Requires: Authorization header (access token)
-// ─────────────────────────────────────────────
-const logout = async (req, res, next) => {
-  try {
-    // req.customer is set by authMiddleware
-    if (req.customer) {
-      const customerId = req.customer.sub;
-      // Optionally: clear FCM token on logout
-      await Customer.updateFcmToken(customerId, null);
-    }
-
-    return successResponse(res, {}, 'Logged out successfully');
-  } catch (err) {
-    next(err);
-  }
-};
-
-// ─────────────────────────────────────────────
-// POST /api/auth/customer-login
-// Body: { firebase_id_token, fcm_token, phone }
-// ─────────────────────────────────────────────
-const customerLogin = async (req, res, next) => {
-  try {
-    const { fcm_token, phone } = req.body;
-
-    // 1. Update customer FCM token if provided
-    if (phone && fcm_token) {
-      const customer = await Customer.findByPhone(phone);
-      if (customer) {
-        await Customer.updateFcmToken(customer.id, fcm_token);
+    return res.status(200).json({
+      success: true,
+      message: 'Login successful',
+      data: {
+        accessToken,
+        refreshToken,
+        user: {
+          id: customer.id,
+          phone_number: customer.phone_number
+        }
       }
-    }
-
-    // 2. Notify all RMs
-    const { sendNotificationToAllRMs, sendGeneralFCMNotification } = require('../services/notification.service');
-    const RelationshipManager = require('../models/relationshipManager.model');
-
-    const rms = await RelationshipManager.findAllActive();
-    const notificationPromises = rms.map(rm => {
-      if (rm.fcm_token) {
-        return sendGeneralFCMNotification({
-          fcmToken: rm.fcm_token,
-          title: 'Customer Login Alert',
-          body: `Customer with phone ${phone} has just logged in.`,
-          data: {
-            type: 'customer_login',
-            phone: phone || 'Unknown'
-          },
-          customerId: rm.id
-        });
-      }
-      return Promise.resolve(null);
     });
 
-    await Promise.all(notificationPromises);
+  } catch (error) {
+    console.error('Verify OTP Error:', error);
 
-    return successResponse(res, {}, 'Login notification processed');
-  } catch (err) {
-    next(err);
+    return res.status(500).json({
+      success: false,
+      message: 'OTP verification failed',
+      debug: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 
-module.exports = { sendOTP, verifyOTPHandler, refreshToken, logout, customerLogin };
+module.exports = {
+  sendOTPHandler,
+  verifyOTPHandler
+};

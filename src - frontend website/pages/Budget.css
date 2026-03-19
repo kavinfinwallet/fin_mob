@@ -1,0 +1,123 @@
+.budget-page .page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.budget-page .page-header h1 {
+  margin-bottom: 0;
+}
+
+.budget-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.budget-toolbar label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.budget-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+}
+
+.budget-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.budget-table th,
+.budget-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.budget-table th {
+  background: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.budget-table tbody tr:hover {
+  background: var(--bg-secondary);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-INITIATED { background: #deebff; color: #0052cc; }
+.status-RECEIVED { background: #e3fcef; color: #006644; }
+.status-STARTED { background: #fff4e6; color: #974f0c; }
+.status-PENDING_APPROVAL { background: #ffebe6; color: #bf2600; }
+.status-VERIFIED { background: #e3fcef; color: #006644; }
+.status-READY_FOR_CUSTOMER_DISCUSSION { background: #deebff; color: #0052cc; }
+.status-COMPLETED_BUDGET_ANALYSIS { background: #e3fcef; color: #006644; }
+
+[data-theme="dark"] .status-INITIATED { background: #1e3a5f; color: #85b8ff; }
+[data-theme="dark"] .status-RECEIVED { background: #164b35; color: #79f2c0; }
+[data-theme="dark"] .status-STARTED { background: #5c3d0a; color: #ffd79b; }
+[data-theme="dark"] .status-PENDING_APPROVAL { background: #5c1a0a; color: #ffbdad; }
+[data-theme="dark"] .status-VERIFIED { background: #164b35; color: #79f2c0; }
+[data-theme="dark"] .status-READY_FOR_CUSTOMER_DISCUSSION { background: #1e3a5f; color: #85b8ff; }
+[data-theme="dark"] .status-COMPLETED_BUDGET_ANALYSIS { background: #164b35; color: #79f2c0; }
+
+.audit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.audit-item {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.9rem;
+}
+
+.audit-item:last-child {
+  border-bottom: none;
+}
+
+.audit-meta {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.audit-comment {
+  margin-top: 0.35rem;
+  color: var(--text-primary);
+}
+
+.detail-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.reject-comment {
+  margin-top: 0.75rem;
+}
+
+.reject-comment textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}

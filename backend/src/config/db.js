@@ -16,7 +16,19 @@ pool.on('error', (err) => {
   process.exit(-1);
 });
 
-const query = (text, params) => pool.query(text, params);
+const query = async (text, params) => {
+  try {
+    return await pool.query(text, params);
+  } catch (err) {
+    console.error('[Database Error]', {
+      text,
+      params,
+      error: err.message,
+      stack: err.stack,
+    });
+    throw err;
+  }
+};
 
 const getClient = () => pool.connect();
 

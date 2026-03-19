@@ -1,0 +1,44 @@
+.require-customer-gate {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem;
+  min-height: 40vh;
+}
+
+.require-customer-card {
+  background-color: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+  max-width: 480px;
+  text-align: center;
+}
+
+.require-customer-card h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.require-customer-card p {
+  margin: 0 0 0.75rem 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.require-customer-card p:last-child {
+  margin-bottom: 0;
+}
+
+.require-customer-card strong {
+  color: var(--text-primary);
+}
+
+.require-customer-hint {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}

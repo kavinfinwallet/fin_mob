@@ -1,0 +1,92 @@
+.approval-detail-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.approval-detail-card {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem 2rem;
+}
+
+.approval-detail-header {
+  margin-bottom: 1.5rem;
+}
+
+.approval-detail-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.35rem;
+  color: var(--text-primary);
+}
+
+.approval-customer {
+  margin: 0 0 0.25rem 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.approval-count {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.approval-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.approval-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.approval-table th,
+.approval-table td {
+  padding: 0.6rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.approval-table th {
+  background: var(--bg-primary);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.approval-table tbody tr:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.approval-category-select {
+  min-width: 140px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.approval-category-readonly {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.approval-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}

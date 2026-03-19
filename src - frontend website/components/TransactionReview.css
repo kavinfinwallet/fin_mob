@@ -1,0 +1,1458 @@
+/* Compact review layout: minimal padding, tight alignment */
+.transaction-review-container.transaction-review-preview-style {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  margin-top: 0;
+}
+
+.review-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.review-header-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.review-heading {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.review-description {
+  margin: 0.15rem 0 0 0;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+/* Two-column layout: left = title + alert, right = Categorization Filters box */
+.review-layout-two-col {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.review-left-col {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.review-left-col .review-heading {
+  margin-bottom: 0.15rem;
+}
+
+.review-left-col .review-description {
+  margin-bottom: 0.5rem;
+}
+
+.review-important-alert {
+  max-width: 100%;
+}
+
+.review-filters-box {
+  flex: 0 0 auto;
+  margin-left: auto;
+  min-width: 560px;
+  max-width: 720px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.6rem 0.85rem;
+  background: var(--bg-secondary);
+}
+
+.review-filters-box-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.review-filters-box-inner {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.review-filters-box-inner .review-search-input {
+  flex: 1 1 auto;
+  min-width: 140px;
+  max-width: 280px;
+}
+
+.review-filters-box-inner .review-category-dropdown-wrap {
+  flex-shrink: 0;
+}
+
+.review-filters-box-inner .review-filter-group .review-category-autocomplete .MuiAutocomplete-root {
+  min-width: 180px;
+  width: 200px;
+}
+
+.review-filters-box-inner .review-filter-category .review-category-autocomplete .MuiAutocomplete-root {
+  min-width: 200px;
+  width: 220px;
+}
+
+/* Action row: Download, Upload, Add new, Type on right */
+.review-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.review-actions-row-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.review-actions-row-type {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.review-actions-inline {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.4rem;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.review-actions-inline .btn-secondary,
+.review-actions-inline .btn-primary {
+  flex-shrink: 0;
+  margin: 0;
+  min-width: auto;
+  height: 2rem;
+  padding: 0 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-actions-inline .btn-primary {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding-left: 0.85rem;
+  padding-right: 0.85rem;
+  white-space: nowrap;
+}
+
+.review-actions-inline .btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+/* Info + toolbar: single compact row */
+.review-info-and-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+  min-height: 2rem;
+}
+
+.review-info-and-toolbar .review-toolbar {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+.review-info-card {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.5rem;
+  flex-shrink: 0;
+  max-width: 240px;
+  background: rgba(59, 130, 246, 0.07);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: #1d4ed8;
+}
+
+[data-theme="dark"] .review-info-card {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #93c5fd;
+}
+
+.review-info-card .review-info-icon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  color: #3b82f6;
+}
+
+.review-readonly-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.65rem;
+  margin-bottom: 0.4rem;
+  background: rgba(107, 114, 128, 0.12);
+  border: 1px solid rgba(107, 114, 128, 0.3);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+[data-theme="dark"] .review-readonly-banner {
+  background: rgba(107, 114, 128, 0.15);
+  border-color: rgba(107, 114, 128, 0.4);
+  color: #9ca3af;
+}
+
+.review-readonly-banner-icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.review-category-readonly {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.review-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.5rem;
+  margin-bottom: 0;
+  row-gap: 0.4rem;
+}
+
+.review-search-input {
+  flex: 1 1 auto;
+  min-width: 160px;
+  max-width: 260px;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.review-info-and-toolbar .review-search-input {
+  max-width: none;
+  min-width: 180px;
+}
+
+.review-search-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+/* Compact filter row: label + dropdown inline */
+.review-category-dropdown-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.review-category-dropdown-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.review-toolbar .review-filter-type .review-category-autocomplete .MuiAutocomplete-root {
+  min-width: 90px;
+  width: 100px;
+}
+
+.review-toolbar .review-filter-group .review-category-autocomplete .MuiAutocomplete-root {
+  min-width: 115px;
+  width: 125px;
+}
+
+.review-toolbar .review-filter-category .review-category-autocomplete .MuiAutocomplete-root {
+  min-width: 125px;
+  width: 145px;
+}
+
+.review-category-autocomplete .MuiAutocomplete-root {
+  min-width: 200px;
+}
+
+.review-category-autocomplete .MuiOutlinedInput-root {
+  min-height: 2.25rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  background: var(--bg-secondary);
+}
+
+.review-toolbar .review-category-autocomplete .MuiOutlinedInput-root {
+  min-height: 2rem;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.review-toolbar .review-category-autocomplete .MuiOutlinedInput-input {
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+  font-size: 0.8125rem;
+}
+
+.review-category-autocomplete .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--accent-color);
+  border-width: 1px;
+}
+
+.review-category-autocomplete .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--text-secondary);
+}
+
+.review-category-mui-input .MuiOutlinedInput-input {
+  font-size: 0.9rem;
+}
+
+/* Row-level MUI Autocomplete (type + category) – same height as before */
+.review-row-autocomplete .MuiAutocomplete-root {
+  width: 100%;
+}
+
+.review-row-autocomplete .MuiOutlinedInput-root {
+  min-height: 2rem;
+  padding: 0 6px;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  background: var(--bg-secondary);
+}
+
+.review-row-autocomplete .MuiOutlinedInput-root .MuiOutlinedInput-input {
+  padding: 0.25rem 0;
+  font-size: 0.8125rem;
+}
+
+.review-row-autocomplete .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiOutlinedInput-input {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+/* Table category dropdown: compact */
+.review-row-category-autocomplete .MuiAutocomplete-root {
+  min-width: 0;
+  max-width: 10rem;
+  width: 100%;
+}
+
+.review-row-category-autocomplete .MuiOutlinedInput-root {
+  min-height: 1.6rem;
+  padding: 0 5px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+}
+
+.review-row-category-autocomplete .MuiOutlinedInput-root .MuiOutlinedInput-input {
+  padding: 0.15rem 0;
+  font-size: 0.78rem;
+}
+
+.review-row-category-autocomplete .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiOutlinedInput-input {
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+}
+
+.review-btn-add-new {
+  margin-left: auto;
+}
+
+.review-btn-add-new.p-button {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.75rem;
+}
+
+.review-btn-bulk-delete.p-button {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.75rem;
+  white-space: nowrap;
+}
+
+.review-btn-excel.p-button,
+.review-btn-excel-upload.p-button {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.75rem;
+  white-space: nowrap;
+}
+
+.review-btn-excel.p-button-outlined,
+.review-btn-excel-upload.p-button-outlined {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.review-btn-excel.p-button-outlined:hover:not(:disabled),
+.review-btn-excel-upload.p-button-outlined:hover:not(:disabled) {
+  background: var(--bg-secondary);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.review-upload-sheet-input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.review-upload-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.6rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  min-height: 2rem;
+}
+
+.review-upload-progress-active {
+  color: var(--accent-color);
+  border-color: rgba(59, 130, 246, 0.4);
+  background: rgba(59, 130, 246, 0.06);
+}
+
+.review-upload-progress-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--border-color);
+  border-top-color: var(--accent-color);
+  border-radius: 50%;
+  animation: review-upload-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes review-upload-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.review-upload-progress-text {
+  flex: 1;
+}
+
+.review-btn-bulk-delete.p-button-danger.p-button-outlined {
+  color: var(--danger-color, #ef4444);
+  border-color: var(--danger-color, #ef4444);
+  background: transparent;
+}
+
+.review-btn-bulk-delete.p-button-danger.p-button-outlined:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: var(--danger-color, #ef4444);
+  color: var(--danger-color, #ef4444);
+}
+
+.review-table-wrap .p-checkbox .p-checkbox-box {
+  border-radius: 6px;
+  border: 1px solid #cfd6e3;
+}
+
+.review-table-wrap .p-checkbox .p-checkbox-box.p-highlight {
+  background: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.review-table-wrap .p-datatable-tbody > tr > td.review-selection-column,
+.review-table-wrap .p-datatable-thead > tr > th.review-selection-column {
+  width: 3rem;
+  min-width: 3rem;
+  text-align: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* Inline edit inputs */
+.review-inline-input {
+  width: 100%;
+  max-width: 100%;
+  padding: 0.2rem 0.35rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.review-date-input {
+  min-width: 140px;
+}
+
+.review-desc-input {
+  min-width: 180px;
+}
+
+/* Description cell: compact, wrap with "Show more" / "Show less". */
+.review-description-cell-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.review-description-cell {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.35;
+  font-size: 0.8125rem;
+  color: var(--text-primary);
+  padding: 0.1rem 0;
+  margin: 0;
+  border-radius: 2px;
+}
+
+.review-description-cell-truncated {
+  /* Optional: limit to 2 lines when truncated (matches ~120 chars on most screens) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.review-description-toggle {
+  align-self: flex-start;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  color: var(--accent-color);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.review-description-toggle:hover {
+  text-decoration: underline;
+}
+
+/* Description edit: multiline textarea */
+.review-desc-textarea {
+  width: 100%;
+  min-width: 240px;
+  min-height: 4.5rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.review-desc-textarea.p-inputtextarea {
+  padding: 0.5rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.review-amount-input {
+  min-width: 100px;
+  max-width: 140px;
+  text-align: left;
+}
+
+.review-cell-amount .review-amount-input {
+  text-align: left;
+}
+
+/* Per-row actions: icon-only, compact */
+.review-row-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.15rem;
+  pointer-events: auto;
+  min-height: 1.5rem;
+  padding: 0;
+}
+
+.review-row-actions.review-row-actions-icons .p-button {
+  pointer-events: auto;
+  cursor: pointer;
+  min-width: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.review-row-actions.review-row-actions-icons .p-button .p-button-icon {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.review-row-actions .p-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.review-row-actions .p-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.review-btn-save.p-button-success {
+  color: var(--success-color, #22c55e);
+}
+
+.review-btn-delete.p-button-danger {
+  color: var(--danger-color, #ef4444);
+}
+
+/* Sticky Actions column: compact, icon-only */
+.review-table-wrap .p-datatable-thead > tr > th:last-child,
+.review-table-wrap .p-datatable-tbody > tr > td:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 5;
+  background: var(--bg-primary);
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.06);
+  min-width: 72px;
+  width: 72px;
+  vertical-align: middle;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.review-table-wrap .p-datatable-thead > tr > th:last-child {
+  background: var(--bg-secondary);
+  z-index: 11;
+}
+
+.review-table-wrap .p-datatable-tbody > tr:hover > td:last-child {
+  background: var(--bg-secondary);
+}
+
+/* Review table: compact, scrollable body, sticky header + paginator */
+.transactions-table-container.review-table-wrap {
+  margin-bottom: 0;
+  max-height: min(68vh, 520px);
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+}
+
+.transaction-review-container .transactions-table-container.review-table-wrap {
+  overflow: hidden;
+}
+
+.review-table-wrap .p-datatable {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.review-table-wrap .p-datatable .p-datatable-wrapper {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.review-table-wrap .p-paginator {
+  flex-shrink: 0;
+}
+
+/* PrimeReact DataTable styling for both preview and review tables */
+.transactions-table-container .p-datatable {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+.transactions-table-container.review-table-wrap .p-datatable {
+  border: none;
+}
+
+.transactions-table-container .p-datatable-wrapper {
+  width: 100%;
+}
+
+.transactions-table-container .p-datatable-thead > tr > th {
+  background-color: var(--bg-secondary);
+  padding: 0.4rem 0.5rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.review-table-wrap .p-datatable-thead > tr > th {
+  background-color: var(--bg-secondary);
+  box-shadow: 0 1px 0 0 var(--border-color);
+  padding: 0.25rem 0.4rem;
+  font-size: 0.75rem;
+}
+
+.transactions-table-container .p-datatable-tbody > tr > td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.8125rem;
+  vertical-align: middle;
+}
+
+.review-table-wrap .p-datatable-tbody > tr > td {
+  padding: 0.2rem 0.35rem;
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.transactions-table-container .p-datatable-tbody > tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+/* Description column: limit width, top align */
+.review-table-wrap .p-datatable-tbody > tr > td:has(.review-description-cell-wrapper) {
+  max-width: 200px;
+  min-width: 120px;
+  vertical-align: top;
+}
+/* Sr. No. / selection column: compact */
+.review-table-wrap .p-datatable-thead > tr > th:first-child,
+.review-table-wrap .p-datatable-tbody > tr > td:first-child {
+  width: 1%;
+  white-space: nowrap;
+}
+/* Amount column: left-align header and body */
+.review-table-wrap .p-datatable-thead > tr > th.review-amount-column,
+.review-table-wrap .p-datatable-tbody > tr > td.review-amount-column,
+.review-table-wrap .p-datatable-tbody > tr > td:has(.review-cell-amount) {
+  text-align: left !important;
+  white-space: nowrap;
+  padding-left: 0.5rem;
+}
+
+.review-table-wrap .p-datatable-tbody > tr > td .review-cell-amount {
+  display: block;
+  text-align: left;
+}
+
+.transactions-table-container .p-paginator {
+  border-top: 1px solid var(--border-color);
+  padding: 0.4rem 0.6rem;
+  background-color: var(--bg-secondary);
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+/* Review table: compact pagination */
+.review-table-wrap .p-paginator,
+.review-paginator.p-paginator {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.6rem;
+  padding: 0.4rem 0.6rem;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  min-height: 36px;
+  font-size: 0.8rem;
+}
+
+.review-paginator.p-paginator .p-paginator-current,
+.review-table-wrap .p-paginator .p-paginator-current {
+  margin-left: auto;
+  margin-right: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.review-paginator.p-paginator .p-paginator-pages,
+.review-table-wrap .p-paginator .p-paginator-pages {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.review-paginator.p-paginator .p-paginator-page,
+.review-table-wrap .p-paginator .p-paginator-page {
+  min-width: 1.75rem;
+  height: 1.75rem;
+  padding: 0 0.35rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.review-paginator.p-paginator .p-paginator-page.p-highlight,
+.review-table-wrap .p-paginator .p-paginator-page.p-highlight {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.review-paginator.p-paginator .p-paginator-first,
+.review-paginator.p-paginator .p-paginator-prev,
+.review-paginator.p-paginator .p-paginator-next,
+.review-paginator.p-paginator .p-paginator-last,
+.review-table-wrap .p-paginator .p-paginator-first,
+.review-table-wrap .p-paginator .p-paginator-prev,
+.review-table-wrap .p-paginator .p-paginator-next,
+.review-table-wrap .p-paginator .p-paginator-last {
+  min-width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.review-paginator.p-paginator .p-paginator-first:hover:not(.p-disabled),
+.review-paginator.p-paginator .p-paginator-prev:hover:not(.p-disabled),
+.review-paginator.p-paginator .p-paginator-next:hover:not(.p-disabled),
+.review-paginator.p-paginator .p-paginator-last:hover:not(.p-disabled),
+.review-table-wrap .p-paginator .p-paginator-first:hover:not(.p-disabled),
+.review-table-wrap .p-paginator .p-paginator-prev:hover:not(.p-disabled),
+.review-table-wrap .p-paginator .p-paginator-next:hover:not(.p-disabled),
+.review-table-wrap .p-paginator .p-paginator-last:hover:not(.p-disabled) {
+  background: var(--bg-tertiary);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* Rows-per-page dropdown: match pagination button look */
+.review-paginator.p-paginator .p-paginator-dropdown,
+.review-table-wrap .p-paginator .p-paginator-dropdown {
+  margin-left: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.review-table-wrap .p-paginator .p-dropdown,
+.review-paginator.p-paginator .p-dropdown {
+  height: 2rem;
+  min-width: 3.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  font-size: 0.875rem;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+}
+
+.review-table-wrap .p-paginator .p-dropdown:not(.p-disabled):hover,
+.review-paginator.p-paginator .p-dropdown:not(.p-disabled):hover {
+  border-color: var(--border-color);
+  background: var(--bg-tertiary);
+}
+
+.review-table-wrap .p-paginator .p-dropdown:not(.p-disabled).p-focus,
+.review-table-wrap .p-paginator .p-dropdown:not(.p-disabled).p-inputwrapper-focus,
+.review-paginator.p-paginator .p-dropdown:not(.p-disabled).p-focus,
+.review-paginator.p-paginator .p-dropdown:not(.p-disabled).p-inputwrapper-focus {
+  outline: none;
+  box-shadow: none;
+  border-color: var(--border-color);
+}
+
+.review-table-wrap .p-paginator .p-dropdown .p-dropdown-label,
+.review-paginator.p-paginator .p-dropdown .p-dropdown-label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.25rem;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.review-table-wrap .p-paginator .p-dropdown .p-dropdown-trigger,
+.review-paginator.p-paginator .p-dropdown .p-dropdown-trigger {
+  width: 1.75rem;
+  color: var(--text-secondary);
+}
+
+/* Remove default focus ring from dropdown and any inner elements */
+.review-table-wrap .p-paginator .p-dropdown *:focus,
+.review-paginator.p-paginator .p-dropdown *:focus,
+.review-table-wrap .p-paginator .p-dropdown *:focus-visible,
+.review-paginator.p-paginator .p-dropdown *:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.preview-table-wrapper {
+  background-color: var(--bg-primary);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.preview-transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-primary);
+}
+
+.preview-transactions-table th {
+  background-color: var(--bg-secondary);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.preview-transactions-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.preview-transactions-table tbody tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+.preview-transactions-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--bg-primary);
+}
+
+.transactions-table th {
+  background-color: var(--bg-secondary);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.transactions-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.transactions-table tbody tr:hover {
+  background-color: var(--bg-secondary);
+}
+
+.description-cell {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.debit-amount {
+  color: var(--error-color);
+}
+
+.credit-amount {
+  color: var(--success-color);
+}
+
+.type-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.type-badge.debit {
+  background-color: rgba(220, 53, 69, 0.2);
+  color: var(--error-color);
+}
+
+.type-badge.credit {
+  background-color: rgba(40, 167, 69, 0.2);
+  color: var(--success-color);
+}
+
+.category-badge {
+  padding: 0.25rem 0.75rem;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+/* Analytics section */
+.analytics-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.analytics-section h3 {
+  margin-bottom: 0.25rem;
+  color: var(--text-primary);
+  font-size: 1.35rem;
+}
+
+.analytics-description {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.analytics-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  align-items: flex-end;
+}
+
+.analytics-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.analytics-filter-group label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.analytics-input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  min-width: 160px;
+}
+
+.analytics-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.analytics-dropdown {
+  min-width: 180px;
+}
+
+.analytics-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.analytics-chart-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.analytics-chart-card h4 {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.chart-wrapper {
+  position: relative;
+  height: 260px;
+  width: 100%;
+}
+
+.chart-wrapper canvas {
+  max-height: 260px;
+}
+
+.analytics-no-data {
+  margin: 0;
+  padding: 2rem 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.review-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.btn-secondary {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--bg-secondary);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.table-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: 1rem;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.pagination-info {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pagination-btn {
+  padding: 0.5rem 0.75rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: var(--bg-secondary);
+  border-color: var(--accent-color);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-info {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  margin: 0 0.5rem;
+}
+
+/* Delete confirmation modal: clean layout, no cut-off, proper spacing */
+.review-confirm-dialog.p-dialog {
+  min-width: 380px;
+  max-width: 90vw;
+  border-radius: 10px;
+  overflow: visible;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.review-confirm-dialog.p-dialog .p-dialog-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.review-confirm-dialog.p-dialog .p-dialog-content {
+  padding: 1.25rem 1.5rem;
+  overflow: visible;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.review-confirm-dialog.p-dialog .p-confirm-dialog-icon {
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  margin: 0;
+  color: var(--warning-color, #eab308);
+}
+
+.review-confirm-dialog.p-dialog .p-confirm-dialog-message {
+  flex: 1;
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.review-confirm-dialog.p-dialog .p-dialog-footer {
+  padding: 1rem 1.5rem;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  border-top: 1px solid var(--border-color);
+  overflow: visible;
+}
+
+.review-confirm-dialog.p-dialog .p-dialog-footer .p-button {
+  min-width: 4rem;
+}
+
+/* Ensure dialog sits above table and sticky columns when appended to body */
+body .p-dialog.review-confirm-dialog {
+  z-index: 10000;
+}
+
+/* ============================= */
+/* BUDGET TABLE DASHBOARD STYLE  */
+/* ============================= */
+
+.transactions-table-container.review-table-wrap {
+  background: #f4f6fb;
+  border-radius: 16px;
+  border: 1px solid #e3e8f0;
+  padding: 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+
+/* ============================= */
+/* PRIME DATATABLE OVERRIDE      */
+/* ============================= */
+
+.review-table-wrap .p-datatable {
+  border-radius: 14px;
+  overflow: hidden;
+  background: white;
+}
+
+
+/* ============================= */
+/* TABLE HEADER                  */
+/* ============================= */
+
+.review-table-wrap .p-datatable-thead > tr > th {
+  background: #f1f3f7;
+  color: #5f6b7a;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  border-bottom: 2px solid #e5e9f2;
+}
+
+
+/* ============================= */
+/* TABLE ROWS                    */
+/* ============================= */
+
+.review-table-wrap .p-datatable-tbody > tr {
+  background: #ffffff;
+  transition: all .2s ease;
+}
+
+.review-table-wrap .p-datatable-tbody > tr:nth-child(even) {
+  background: #fafbfe;
+}
+
+
+/* ============================= */
+/* TABLE CELLS                   */
+/* ============================= */
+
+.review-table-wrap .p-datatable-tbody > tr > td {
+  padding: 14px;
+  font-size: 14px;
+  color: #344054;
+  border-bottom: 1px solid #edf0f5;
+}
+
+
+/* ============================= */
+/* ROW HOVER EFFECT              */
+/* ============================= */
+
+.review-table-wrap .p-datatable-tbody > tr:hover {
+  background: #f1f5ff;
+}
+
+
+/* ============================= */
+/* ACTION COLUMN                 */
+/* ============================= */
+
+.review-table-wrap .p-datatable-tbody > tr > td:last-child,
+.review-table-wrap .p-datatable-thead > tr > th:last-child {
+  background: #fff;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.04);
+}
+
+
+/* ============================= */
+/* PAGINATION                    */
+/* ============================= */
+
+.review-table-wrap .p-paginator {
+  background: #f7f9fc;
+  border-top: 1px solid #e6ebf3;
+  padding: 10px;
+}
+
+
+/* ============================= */
+/* PAGINATION BUTTONS            */
+/* ============================= */
+
+.review-table-wrap .p-paginator .p-paginator-page {
+  border-radius: 8px;
+  border: 1px solid #d9e0ea;
+  background: white;
+  font-size: 13px;
+}
+
+.review-table-wrap .p-paginator .p-paginator-page.p-highlight {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+
+/* ============================= */
+/* CHECKBOX STYLE                */
+/* ============================= */
+
+.review-table-wrap .p-checkbox .p-checkbox-box {
+  border-radius: 6px;
+  border: 1px solid #cfd6e3;
+}
+
+.review-table-wrap .p-checkbox .p-checkbox-box.p-highlight {
+  background: #3b82f6;
+  border-color: #3b82f6;
+}
+
+
+/* ============================= */
+/* STATUS BADGES (OPTIONAL)      */
+/* ============================= */
+
+.status-active {
+  background:#e7f7ed;
+  color:#16a34a;
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.status-critical {
+  background:#fee2e2;
+  color:#dc2626;
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.status-pending {
+  background:#ede9fe;
+  color:#7c3aed;
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+}

@@ -1,0 +1,254 @@
+/* Categories page: same design language as Create user / Customers */
+.categories-page .dashboard-content {
+  max-width: none;
+}
+
+.categories-page .categories-page-card.dashboard-card {
+  padding: 1rem 1.25rem;
+}
+
+.categories-page .admin-users-title {
+  color: #7A63D9;
+}
+
+.categories-filter-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.categories-rm-notice {
+  color: var(--danger);
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+}
+
+/* ----- All categories panel (full width, same as Users table) ----- */
+.categories-page-card .categories-all-panel {
+  margin-top: 0.5rem;
+}
+
+.categories-all-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary);
+}
+
+.categories-all-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.categories-panel-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.categories-list-scroll {
+  max-height: 560px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+/* Group card */
+.categories-group-card {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.categories-group-card:last-child {
+  margin-bottom: 0;
+}
+
+.categories-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.categories-group-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.categories-group-actions .btn-secondary {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+}
+
+.categories-group-actions .btn-secondary.categories-btn-delete {
+  color: var(--error-color);
+  border-color: var(--error-color);
+  background: transparent;
+}
+
+.categories-group-actions .btn-secondary.categories-btn-delete:hover:not(:disabled) {
+  background: rgba(222, 53, 11, 0.08);
+}
+
+[data-theme="dark"] .categories-group-actions .btn-secondary.categories-btn-delete:hover:not(:disabled) {
+  background: rgba(255, 86, 48, 0.12);
+}
+
+/* Category rows inside group */
+.categories-group-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.categories-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  transition: background-color 0.15s ease;
+}
+
+.categories-group-item:last-child {
+  border-bottom: none;
+}
+
+.categories-group-item:hover {
+  background: var(--bg-secondary);
+}
+
+.categories-group-item-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.categories-group-item-name {
+  font-weight: 500;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.categories-type-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.categories-type-investment {
+  background: rgba(0, 135, 90, 0.15);
+  color: var(--success-color);
+  border: 1px solid var(--success-color);
+}
+
+.categories-type-emi {
+  background: rgba(0, 82, 204, 0.12);
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+}
+
+[data-theme="dark"] .categories-type-investment {
+  background: rgba(54, 179, 126, 0.2);
+  color: #79f2c0;
+  border-color: #36b37e;
+}
+
+[data-theme="dark"] .categories-type-emi {
+  background: rgba(87, 155, 255, 0.15);
+  color: #79b8ff;
+  border-color: var(--accent-color);
+}
+
+.categories-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0;
+}
+
+.categories-keyword-tag {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.categories-group-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.categories-group-item-actions .btn-secondary {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: 4px;
+}
+
+.categories-group-item-actions .btn-secondary.categories-btn-delete {
+  color: var(--error-color);
+  border-color: var(--error-color);
+  background: transparent;
+}
+
+.categories-group-item-actions .btn-secondary.categories-btn-delete:hover:not(:disabled) {
+  background: rgba(222, 53, 11, 0.08);
+}
+
+[data-theme="dark"] .categories-group-item-actions .btn-secondary.categories-btn-delete:hover:not(:disabled) {
+  background: rgba(255, 86, 48, 0.12);
+}
+
+/* Empty / loading states */
+.categories-empty,
+.categories-loading {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.categories-loading {
+  padding: 1.5rem;
+}

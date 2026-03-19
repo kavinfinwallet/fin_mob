@@ -1,0 +1,111 @@
+/* Custom Select: no border, shadow only, gap between trigger and list */
+.custom-select {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.custom-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.625rem 2.5rem 0.625rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+  text-align: left;
+  font-family: inherit;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.custom-select-trigger:hover:not(:disabled) {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-select-trigger:focus {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(var(--accent-color-rgb), 0.2);
+}
+
+.custom-select[data-disabled] .custom-select-trigger {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.custom-select-value {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.custom-select-chevron {
+  position: absolute;
+  right: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.custom-select-open .custom-select-chevron {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* List: gap below trigger, no border, shadow only */
+.custom-select-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+  border: none;
+}
+
+.custom-select-option {
+  display: block;
+  width: 100%;
+  padding: 0.625rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-align: left;
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s ease;
+}
+
+.custom-select-option:hover,
+.custom-select-option-selected {
+  background: rgba(var(--accent-color-rgb), 0.12);
+}
+
+[data-theme="dark"] .custom-select-list {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .custom-select-trigger {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] .custom-select-trigger:hover:not(:disabled) {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}

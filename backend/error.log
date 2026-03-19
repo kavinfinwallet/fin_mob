@@ -12,3 +12,15 @@
     at async sendFCMNotification (C:\Users\finwalletit\Documents\finwallet\backend\src\services\notification.service.js:61:5)
     at async sendOTP (C:\Users\finwalletit\Documents\finwallet\backend\src\controllers\auth.controller.js:80:25)
 
+[2026-03-18T12:31:45.740Z] SyntaxError: Expected property name or '}' in JSON at position 1
+    at JSON.parse (<anonymous>)
+    at parse (C:\fin_mob\backend\node_modules\body-parser\lib\types\json.js:92:19)
+    at C:\fin_mob\backend\node_modules\body-parser\lib\read.js:128:18
+    at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+    at invokeCallback (C:\fin_mob\backend\node_modules\raw-body\index.js:238:16)
+    at done (C:\fin_mob\backend\node_modules\raw-body\index.js:227:7)
+    at IncomingMessage.onEnd (C:\fin_mob\backend\node_modules\raw-body\index.js:287:7)
+    at IncomingMessage.emit (node:events:524:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+

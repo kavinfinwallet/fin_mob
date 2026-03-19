@@ -7,70 +7,8 @@ const NotificationLog = require('../models/notificationLog.model');
  * Used for mobile apps with an FCM device token
  */
 const sendFCMNotification = async ({ fcmToken, otp, purpose, customerId, customerType }) => {
-  const log = await NotificationLog.create({
-    customerId,
-    type: customerType === 'existing' ? 'existing_customer' : 'new_customer',
-    channel: 'fcm',
-    status: 'pending',
-  });
-
-  try {
-    const messaging = getMessaging();
-
-    const message = {
-      token: fcmToken,
-      notification: {
-        title: 'Verify Your Account',
-        body: `Code: ${otp.substring(0, 2)}XXXX - Use this to access WealthOS securely.`,
-      },
-      data: {
-        otp,
-        purpose,
-        type: 'otp_verification',
-        expires_in: String(parseInt(process.env.OTP_EXPIRES_IN_MINUTES || 5) * 60),
-        phone_number: String(customerId), 
-      },
-      android: {
-        priority: 'high',
-        notification: {
-          channelId: 'otp_channel',
-          priority: 'max',
-          defaultSound: true,
-        },
-      },
-      apns: {
-        payload: {
-          aps: {
-            alert: {
-              title: 'Verify Your Account',
-              body: `Code: ${otp.substring(0, 2)}XXXX - Use this to access WealthOS securely.`,
-            },
-            sound: 'default',
-            badge: 1,
-            'content-available': 1,
-          },
-        },
-      },
-    };
-
-    const response = await messaging.send(message);
-    await NotificationLog.updateStatus(log.id, 'sent');
-
-    return { success: true, messageId: response, logId: log.id, channel: 'FCM' };
-  } catch (err) {
-    const errMsg = err.message || 'FCM send failed';
-    console.error('[FCM Error Object]', err);
-    console.error('[FCM Error Message]', errMsg);
-    
-    // Attempt to log failure to DB, but don't let it crash if DB fails too
-    try {
-      await NotificationLog.updateStatus(log.id, 'failed', errMsg);
-    } catch (dbErr) {
-      console.error('[DB Logging Error]', dbErr.message);
-    }
-
-    return { success: false, error: errMsg, logId: log.id, channel: 'FCM' };
-  }
+  console.log(`[FCM] Notification skipped as per user request.`);
+  return { success: true, message: 'FCM Disabled' };
 };
 
 /**
@@ -85,42 +23,8 @@ const sendWebPushNotification = async ({
   customerId,
   customerType,
 }) => {
-  const log = await NotificationLog.create({
-    customerId,
-    type: customerType === 'existing' ? 'existing_customer' : 'new_customer',
-    channel: 'web_push',
-    status: 'pending',
-  });
-
-  try {
-    const payload = JSON.stringify({
-      title: 'Your Verification Code',
-      body: `Your OTP is ${otp}. Valid for ${process.env.OTP_EXPIRES_IN_MINUTES || 5} minutes.`,
-      data: {
-        otp,
-        purpose,
-        type: 'otp_verification',
-      },
-      icon: '/icon-192x192.png',
-      badge: '/badge-72x72.png',
-      tag: 'otp',
-      requireInteraction: true,
-    });
-
-    await webpush.sendNotification(webPushSubscription, payload, {
-      TTL: (parseInt(process.env.OTP_EXPIRES_IN_MINUTES) || 5) * 60,
-      urgency: 'high',
-    });
-
-    await NotificationLog.updateStatus(log.id, 'sent');
-
-    return { success: true, logId: log.id, channel: 'web push' };
-  } catch (err) {
-    const errMsg = err.message || 'Web push send failed';
-    await NotificationLog.updateStatus(log.id, 'failed', errMsg);
-    console.error('[WebPush Error]', errMsg);
-    return { success: false, error: errMsg, logId: log.id, channel: 'web push' };
-  }
+  console.log(`[WebPush] Notification skipped as per user request.`);
+  return { success: true, message: 'WebPush Disabled' };
 };
 
 /**
@@ -135,34 +39,9 @@ const sendOTPNotification = async ({
   customerId,
   customerType,
 }) => {
-  if (fcmToken) {
-    return sendFCMNotification({ fcmToken, otp, purpose, customerId, customerType });
-  }
-
-  if (webPushSubscription) {
-    return sendWebPushNotification({
-      webPushSubscription,
-      otp,
-      purpose,
-      customerId,
-      customerType,
-    });
-  }
-
-  // Neither channel available — log as failed
-  const log = await NotificationLog.create({
-    customerId,
-    type: customerType === 'existing' ? 'existing_customer' : 'new_customer',
-    channel: 'fcm',
-    status: 'failed',
-    errorMessage: 'No FCM token or web push subscription available',
-  });
-
-  return {
-    success: false,
-    error: 'No notification channel available for this customer',
-    logId: log.id,
-  };
+  // FCM and WebPush removed as per user request. Using SMS via MSG91 only.
+  console.log(`[sendOTPNotification] Notification skipped. Using MSG91 SMS instead.`);
+  return { success: true, message: 'Notification skipped (SMS only)' };
 };
 
 /**
